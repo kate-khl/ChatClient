@@ -22,6 +22,8 @@ public class ChatClientApplication implements CommandLineRunner {
     	Scanner console = new Scanner(System.in);
     	String name = console.nextLine();
     	System.out.println(name);
+    	name = name.trim();
+    	System.out.println(name);
     	
     }
 }
