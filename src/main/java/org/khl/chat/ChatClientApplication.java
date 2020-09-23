@@ -23,7 +23,7 @@ public class ChatClientApplication implements CommandLineRunner {
     	String name = console.nextLine();
     	System.out.println(name);
     	name = name.trim();
-    	System.out.println(name);
+    	System.out.println(name); //
     	
     }
 }
