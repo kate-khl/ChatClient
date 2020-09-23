@@ -1,14 +1,13 @@
-package org.khl.chat.service;
+package org.khl.chat.command;
 
-public enum Command {
+public enum CommandType {
 
 	HELP ("help"),
-	LOGIN ("login"),
-	NOT_COMMAND("");
+	SIGN_IN ("login");
 	
 	private String name;
 
-	Command(String name) {
+	CommandType(String name) {
 		this.name = name;
 	}
 	
