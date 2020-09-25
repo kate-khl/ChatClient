@@ -3,7 +3,8 @@ package org.khl.chat.command;
 public enum CommandType {
 
 	HELP ("help"),
-	SIGN_IN ("login");
+	SIGN_IN ("signin"),
+	SIGN_UP ("singup");
 	
 	private String name;
 

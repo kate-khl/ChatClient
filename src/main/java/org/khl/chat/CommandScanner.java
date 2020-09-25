@@ -1,5 +1,7 @@
 package org.khl.chat;
 
+import java.util.Set;
+
 import org.khl.chat.command.Command;
 import org.khl.chat.command.CommandResult;
 import org.khl.chat.command.CommandType;
@@ -7,12 +9,19 @@ import org.khl.chat.command.Help;
 import org.khl.chat.command.SignIn;
 import org.khl.chat.service.SettingsService;
 import org.khl.chat.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CommandScanner {
 	
-	SettingsService settingsService;
-	UserService userService; 
-	
+//	SettingsService settingsService;
+//	UserService userService; 
+	@Autowired
+	Set<Command> cmds;
+	@Autowired
+	private ApplicationContext context;
 	
 	public CommandResult parse(String inputStr) {
 		
@@ -30,7 +39,7 @@ public class CommandScanner {
 				if (inputStr.indexOf(cmdType.getName()) == 0) {
 					
 					if (cmdType == CommandType.HELP) 
-						return new Help(cmdType); 
+						return context.getBean(Help.class);//new Help(cmdType); 
 					
 					if (cmdType == CommandType.SIGN_IN) {
 						
@@ -65,6 +74,6 @@ public class CommandScanner {
 		for (Character c : password)
 			strPassword.append(c.charValue());
 		
-		return  new SignIn(CommandType.SIGN_IN, strLogin.toString(), strPassword.toString());
+		return null; // (SignIn) context.getBean(strLogin.toString(), strPassword.toString());//new SignIn(CommandType.SIGN_IN, strLogin.toString(), strPassword.toString());
 	}
 }
