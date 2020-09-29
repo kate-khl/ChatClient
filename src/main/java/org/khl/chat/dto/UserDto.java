@@ -49,9 +49,13 @@ public class UserDto {
 	public String getRole() {
 		return role;
 	}
-	
 	public void setRole(String role) {
 		this.role = role;
 	}
 
+	@Override
+	public String toString() {
+		String result = "User №" + this.id + " " + this.name + " (" + this.email +")";
+		return result;
+	}
 }

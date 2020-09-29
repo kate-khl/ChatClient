@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 public class SignUp extends Command{
-
+	
 	private String name;
 	private String email;
 	private String password;
@@ -22,7 +22,7 @@ public class SignUp extends Command{
 //	private RestTemplate restTemplate;
 	
 	public SignUp() {
-		super("Sign desc");
+		super();
 	}
 	
 	public SignUp(String inputStr) {
@@ -38,7 +38,7 @@ public class SignUp extends Command{
 	
 		HttpEntity<UserDto> requestBody = new HttpEntity<>(new UserDto(100L, this.name, this.email, this.password, this.role));
 		ResponseEntity<UserDto> result = restTemplate.postForEntity(URL_SIGN_UP, requestBody, UserDto.class);
-		return result.toString();
+		return "Вы зарегистрированы: " + result.getBody().toString() +"\nДля входа введите: $singin -email your@email.com -password yourpassword\n" ;
 	}
 
 	public String getLogin() {
@@ -57,33 +57,6 @@ public class SignUp extends Command{
 		this.password = password;
 	}
 	
-	private String getParamValueFromInputString(String inputStr, String param) {
-		int loginBeginIdx = 0;
-		int loginEndIdx = 0;
-		
-		if (inputStr.indexOf("-" + param + " ") != -1)
-		{
-			loginBeginIdx = inputStr.indexOf("-" + param + " ") + ("-" + param + " ").length();
-		
-			if (inputStr.indexOf(" ", loginBeginIdx) != -1) 
-				loginEndIdx = inputStr.indexOf(" ", loginBeginIdx);
-			else 
-				loginEndIdx = inputStr.length();	
-		}
-		
-		if (loginEndIdx - loginBeginIdx > 1)
-		{
-			char[] result = new char[loginEndIdx - loginBeginIdx];
-			inputStr.getChars(loginBeginIdx, loginEndIdx, result, 0);
-			
-			StringBuilder strResult = new StringBuilder(result.length);
-			for (Character c : result)
-				strResult.append(c.charValue());
-			
-			return strResult.toString();
-		}
-		else 
-			 throw new InvalidCommandParamException("Field value error");
-	}
+
 
 }

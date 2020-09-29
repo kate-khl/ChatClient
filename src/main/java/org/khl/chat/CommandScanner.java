@@ -18,19 +18,21 @@ public class CommandScanner {
 	public String parse(String inputStr) {
 		
 		Command cmd = getCmd( inputStr);
-		return cmd.execute(restTemplate);
+		if (cmd != null)
+			return cmd.execute(restTemplate);
+		else return "Неверная команда\n";
 	}
 	
 	
 	private Command getCmd(String inputStr) {
 		inputStr = inputStr.trim();		
-			if (inputStr.contains("help") && (inputStr.indexOf("help")== 0)) 
+			if (inputStr.contains("$help") && (inputStr.indexOf("$help")== 0)) 
 				return new Help();
 					
-			if (inputStr.contains("signin") && (inputStr.indexOf("signin")== 0)) 
+			if (inputStr.contains("$signin") && (inputStr.indexOf("$signin")== 0)) 
 				return new SignIn(inputStr);
 
-			if (inputStr.contains("signup") && (inputStr.indexOf("signup")== 0)) 
+			if (inputStr.contains("$signup") && (inputStr.indexOf("$signup")== 0)) 
 				return new SignUp(inputStr);
 
 		return null;

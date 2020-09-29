@@ -16,25 +16,34 @@ public class ChatClientApplication implements CommandLineRunner {
 	private CommandScanner cmdScan;
 	
 	public static void main(String[] args) {
+		   System.setProperty("http.proxyHost", "127.0.0.1");
+		      System.setProperty("https.proxyHost", "127.0.0.1");
+		      System.setProperty("http.proxyPort", "8888");
+		      System.setProperty("https.proxyPort", "8888");
+		      
 		SpringApplication.run(ChatClientApplication.class, args);
 	}
 
     @Override
     public void run(String... args) throws IOException {
 
-    	System.out.println("\n\n***Меню*** " + 
-    			"\n Для регистрации введите signup -name yourname -email your@email.com -password yourpassword" 
-    		  + "\n Для входа введите singin login your@email.com password yourpassword " 
-    		  + "\n Для получения справки введите help");
+    	System.out.println("\n\n***Начало работы*** " + 
+    			"\n Для регистрации введите $signup -name yourname -email your@email.com -password yourpassword" 
+    		  + "\n Для входа введите $signin -email your@email.com -password yourpassword " 
+    		  + "\n Для получения справки введите $help");
     	
     	Scanner console = new Scanner(System.in);
-    	System.out.println(cmdScan.parse(console.nextLine()));
-
+    	scan(console);
     	
     }
     
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+    
+    private void scan(Scanner console) {
+    	System.out.println(cmdScan.parse(console.nextLine()));
+    	scan(console);
     }
 }
