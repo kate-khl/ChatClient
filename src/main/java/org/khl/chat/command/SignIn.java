@@ -1,33 +1,24 @@
 package org.khl.chat.command;
 
-import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
-@Component
 public class SignIn extends Command{
 
 	private String login;
 	private String password;
-
-	
 	
 	public SignIn() {
-		super(CommandType.SIGN_IN, "signin desc");
+		super("SignIn desc");
 	}
-
-	public SignIn(String login, String password) {
-		super(CommandType.SIGN_IN, "SignIn desc");
-		this.login = login;
-		this.password = password;
+	
+	public SignIn(String inputStr) {
+		this();
+		this.login = setLoginFromString(inputStr);
+		this.password = setPasswordFromString(inputStr);
 	}
-
-//	public SignIn(String login, String password) {
-//		super(commandType, "SignIn desc");
-//		this.login = login;
-//		this.password = password;
-//	}
 
 	@Override
-	public CommandResult execute() {
+	public String execute(RestTemplate restTemplate) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -48,6 +39,35 @@ public class SignIn extends Command{
 		this.password = password;
 	}
 	
+	private String setPasswordFromString(String inputStr) {
+		
+		int passwordBeginIdx = inputStr.indexOf("password ") + "password ".length();
+		int passwordEndIdx = inputStr.length();
+		
+		char[] password = new char[passwordEndIdx - passwordBeginIdx];
+		inputStr.getChars(passwordBeginIdx, passwordEndIdx, password, 0);
 
+		StringBuilder strPassword = new StringBuilder(password.length);
+		for (Character c : password)
+			strPassword.append(c.charValue());
+		
+		return strPassword.toString();
+	}
+	
+	private String setLoginFromString(String inputStr) {
+		
+		int loginBeginIdx = inputStr.indexOf("login ") + "login ".length();
+		int loginEndIdx = inputStr.indexOf(" password");
+		
+		char[] login = new char[loginEndIdx - loginBeginIdx];
+		inputStr.getChars(loginBeginIdx, loginEndIdx, login, 0);
+		
+		StringBuilder strLogin = new StringBuilder(login.length);
+		for (Character c : login)
+			strLogin.append(c.charValue());
+		
+		return strLogin.toString();
+		 
+	}
 
 }

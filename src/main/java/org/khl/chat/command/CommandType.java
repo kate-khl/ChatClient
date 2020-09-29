@@ -15,4 +15,11 @@ public enum CommandType {
 	public String getName() {
 		return  this.name;
 	}
+	
+	public static CommandType getCommandType(String inputString) {
+		
+		
+		return null;
+		
+	}
 }

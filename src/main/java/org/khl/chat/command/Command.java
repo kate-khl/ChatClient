@@ -1,42 +1,33 @@
 package org.khl.chat.command;
 
+import org.springframework.web.client.RestTemplate;
+
 public abstract class Command {
 
-	private CommandType commandType;
-	private String descriprtion;
+//	private CommandType commandType;
+	String descriprtion;
+	RestTemplate restTemplate;
 	
-
-
-	public CommandType getCommandType() {
-		return commandType;
+	public Command(String descriprtion) {
+		super();
+		this.descriprtion = descriprtion;
 	}
 
-	public void setCommandType(CommandType commandType) {
-		this.commandType = commandType;
+	public Command(RestTemplate restTemplate) {
+		super();
+		this.restTemplate = restTemplate;
 	}
+	
+	public abstract String  execute(RestTemplate restTemplate);
 
 	public String getDescriprtion() {
 		return descriprtion;
 	}
 
-
-
 	public void setDescriprtion(String descriprtion) {
 		this.descriprtion = descriprtion;
 	}
 
-
-
-	public Command(CommandType commandType, String descriprtion) {
-		super();
-		this.commandType = commandType;
-		this.descriprtion = descriprtion;
-	}
-
-
-
-	public abstract CommandResult execute();
-	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
