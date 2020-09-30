@@ -3,6 +3,7 @@ package org.khl.chat;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.khl.chat.command.CommandScanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -34,7 +35,6 @@ public class ChatClientApplication implements CommandLineRunner {
     	
     	Scanner console = new Scanner(System.in);
     	scan(console);
-    	
     }
     
     @Bean

@@ -1,8 +1,5 @@
 package org.khl.chat.command;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.client.RestTemplate;
-
 public class Help  extends Command{
 	
 	public Help() {
@@ -10,7 +7,7 @@ public class Help  extends Command{
 	}
 
 	@Override
-	public String execute(RestTemplate restTemplate) {
+	public String execute() {
 		
 		return Command.description;
 	}

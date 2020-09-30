@@ -1,5 +1,6 @@
 package org.khl.chat.command;
 
+import org.khl.chat.RequestService;
 import org.khl.chat.exception.InvalidCommandParamException;
 import org.springframework.web.client.RestTemplate;
 
@@ -8,19 +9,22 @@ public abstract class Command {
 	public static String description = "$help - справка; \n"
 									+ "$signup -name yourname -email your@email.com -password yourpassword - регистрация нового пользователя; \n"
 									+ "$singin -email your@email.com -password yourpassword - вход зарегистрированного пользователя\n";
-	RestTemplate restTemplate;
+	
+	protected RequestService requestService;
 	
 	public Command() {
 		super();
 	}
 
-	public Command(RestTemplate restTemplate) {
-		super();
-		this.restTemplate = restTemplate;
+	public abstract String  execute();
+
+	public RequestService getReqService() {
+		return requestService;
 	}
 	
-	public abstract String  execute(RestTemplate restTemplate);
-
+	void setReqService(RequestService reqService) {
+		this.requestService = reqService;
+	}
 	
 	protected String getParamValueFromInputString(String inputStr, String paramName) {
 		
@@ -51,4 +55,7 @@ public abstract class Command {
 		else 
 			 throw new InvalidCommandParamException("Field value error");
 	}
+
+	
+	
 }

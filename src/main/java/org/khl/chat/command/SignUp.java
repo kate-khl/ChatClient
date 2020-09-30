@@ -8,18 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-
 public class SignUp extends Command{
 	
 	private String name;
 	private String email;
 	private String password;
 	private String role;
-	RestTemplate restTemplate;
-	private static final String URL_SIGN_UP = "http://localhost:8080/registration";
-	
-//	@Autowired
-//	private RestTemplate restTemplate;
 	
 	public SignUp() {
 		super();
@@ -34,11 +28,12 @@ public class SignUp extends Command{
 	}
 
 	@Override
-	public String execute(RestTemplate restTemplate) {
+	public String execute() {
 	
-		HttpEntity<UserDto> requestBody = new HttpEntity<>(new UserDto(100L, this.name, this.email, this.password, this.role));
-		ResponseEntity<UserDto> result = restTemplate.postForEntity(URL_SIGN_UP, requestBody, UserDto.class);
-		return "Вы зарегистрированы: " + result.getBody().toString() +"\nДля входа введите: $singin -email your@email.com -password yourpassword\n" ;
+		UserDto uDto = requestService.signUp(new UserDto(this.name, this.email, this.password, this.role));
+		
+		if (uDto != null) return "Регистрация польователя " + uDto.getName() + " (" + uDto.getEmail() + ") прошла успешно. \nВы можете авторизоваться." ;
+		else return "Ошибка регистрации. Проверьте свои данные.";
 	}
 
 	public String getLogin() {

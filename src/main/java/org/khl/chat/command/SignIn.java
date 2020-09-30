@@ -14,8 +14,6 @@ public class SignIn extends Command{
 	private String email;
 	private String password;
 	
-	private static final String URL_SIGN_IN = "http://127.0.0.1:8080/auth";
-	
 	public SignIn() {
 		super();
 	}
@@ -27,35 +25,28 @@ public class SignIn extends Command{
 	}
 
 	@Override
-	public String execute(RestTemplate restTemplate) {
+	public String execute() {
+		
+		UserDto uDto = requestService.signIn(new LoginRequestDto(this.email, this.password));
 
-		try {
-			HttpEntity<LoginRequestDto> requestBody = new HttpEntity<>(new LoginRequestDto(this.email, this.password));
-			String result = restTemplate.postForObject(URL_SIGN_IN, requestBody, String.class);
-			return result;
-		}
-		catch (HttpClientErrorException ex) {
-			return ex.getStatusCode().toString() + " : " + ex.getMessage();
-		}
-		catch (HttpServerErrorException ex) {
-			return ex.getStatusCode().toString();
-		}
+		if (uDto != null) 
+			return "Вы вошли как " + uDto.getName() + " (" + uDto.getEmail() + ").";
+		else return "Ошибка авторизации";
 	}
-
-	public String getLogin() {
-		return email;
-	}
-
-	public void setLogin(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+//
+//	public String getEmail() {
+//		return email;
+//	}
+//
+//	public void setEmail(String email) {
+//		this.email = email;
+//	}
+//
+//	public String getPassword() {
+//		return password;
+//	}
+//
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
 }
