@@ -9,6 +9,7 @@ import org.khl.chat.dto.LoginResponseDto;
 import org.khl.chat.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -49,8 +50,10 @@ public class RequestService {
 		}
 	}
 	
-	public Collection<UserDto> getUsers() {
-		ResponseEntity<UserDto[]> response = restTemplate.getForEntity(URL_SIGN_UP, UserDto[].class);
+	public Collection<UserDto> getUsers(String token) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", token);
+		ResponseEntity<UserDto[]> response = restTemplate.getForEntity(URL_GET_USERS, UserDto[].class);
 		return Arrays.asList(response.getBody());
 	}
 	

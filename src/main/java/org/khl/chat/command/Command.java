@@ -11,6 +11,7 @@ public abstract class Command {
 									+ "$singin -email your@email.com -password yourpassword - вход зарегистрированного пользователя\n";
 	
 	protected RequestService requestService;
+	protected String token;
 	
 	public Command() {
 		super();
@@ -26,7 +27,15 @@ public abstract class Command {
 		this.requestService = reqService;
 	}
 	
-	protected String getParamValueFromInputString(String inputStr, String paramName) {
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	protected String getParamValueFromInputString(String paramName, String inputStr) {
 		
 		int loginBeginIdx = 0;
 		int loginEndIdx = 0;

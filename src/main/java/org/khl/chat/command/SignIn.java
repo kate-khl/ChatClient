@@ -20,8 +20,8 @@ public class SignIn extends Command{
 	
 	public SignIn(String inputStr) {
 		this();
-		this.email = getParamValueFromInputString(inputStr, "email");
-		this.password = getParamValueFromInputString(inputStr, "password");
+		this.email = getParamValueFromInputString("email", inputStr);
+		this.password = getParamValueFromInputString("password", inputStr);
 	}
 
 	@Override
