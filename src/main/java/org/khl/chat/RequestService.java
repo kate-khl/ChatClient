@@ -24,7 +24,7 @@ public class RequestService {
 	private static final String URL_GET_USERS = "http://127.0.0.1:8080//users/list";
 	
 	@Autowired
-	Application app;
+	Session app;
 	
 	@Autowired
 	private RestTemplate restTemplate;
