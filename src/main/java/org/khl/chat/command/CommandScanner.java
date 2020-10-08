@@ -1,6 +1,6 @@
 package org.khl.chat.command;
 
-import org.khl.chat.Session;
+import org.khl.chat.AppData;
 import org.khl.chat.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,8 +11,8 @@ public class CommandScanner {
 		
 	@Autowired 
 	RequestService requestService;
-	
-	private Session app;
+	@Autowired
+	private AppData app;
 	
 	public String parse(String inputStr) {
 		
@@ -28,25 +28,25 @@ public class CommandScanner {
 		inputStr = inputStr.trim();	
 		
 			if (inputStr.contains("$help") && (inputStr.indexOf("$help")== 0)) {
-				cmd = new Help();
+				cmd = new CmdHelp();
 				return cmd;
 			}
 					
 			else if (inputStr.contains("$signin") && (inputStr.indexOf("$signin")== 0)) {
-				cmd =  new SignIn(inputStr);
+				cmd =  new CmdSignIn(inputStr);
 				cmd.setReqService(requestService);
 				return cmd;
 			}
 
 			else if (inputStr.contains("$signup") && (inputStr.indexOf("$signup")== 0)) {
-				cmd = new SignUp(inputStr);
+				cmd = new CmdSignUp(inputStr);
 				cmd.setReqService(requestService);
 				return cmd;
 			}
 			else if (inputStr.contains("$getusers") && (inputStr.indexOf("$getusers")== 0)) {
-				cmd = new SignUp(inputStr);
+				cmd = new CmdGetUsers();
 				cmd.setReqService(requestService);
-				cmd.setToken(app.getToken());
+				cmd.setAppData(app);
 				return cmd;
 			}
 

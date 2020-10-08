@@ -7,6 +7,9 @@ public class LoginResponseDto {
 	
 	
 	
+	public LoginResponseDto() {
+	}
+	
 	public LoginResponseDto(String token, UserDto userDto) {
 		super();
 		this.token = token;

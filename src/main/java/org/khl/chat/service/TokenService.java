@@ -1,7 +1,7 @@
 package org.khl.chat.service;
 
 import java.util.Base64;
-import org.khl.chat.Session;
+import org.khl.chat.AppData;
 import com.google.gson.Gson;
 
 public class TokenService {
@@ -17,6 +17,6 @@ public class TokenService {
         
         String body = new String(Base64.getMimeDecoder().decode(base64EncodedBody));
         Gson gson = new Gson();
-        Session ss = gson.fromJson(body, Session.class);
+        AppData ss = gson.fromJson(body, AppData.class);
 	}
 }

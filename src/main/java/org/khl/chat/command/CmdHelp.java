@@ -1,8 +1,8 @@
 package org.khl.chat.command;
 
-public class Help  extends Command{
+public class CmdHelp  extends Command{
 	
-	public Help() {
+	public CmdHelp() {
 		super();
 	}
 

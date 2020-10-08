@@ -1,5 +1,6 @@
 package org.khl.chat.command;
 
+import org.khl.chat.AppData;
 import org.khl.chat.RequestService;
 import org.khl.chat.exception.InvalidCommandParamException;
 import org.springframework.web.client.RestTemplate;
@@ -11,13 +12,17 @@ public abstract class Command {
 									+ "$singin -email your@email.com -password yourpassword - вход зарегистрированного пользователя\n";
 	
 	protected RequestService requestService;
-	protected String token;
+	protected AppData appData;
 	
 	public Command() {
 		super();
 	}
+	public Command(AppData appData) {
+		super();
+		this.appData = appData;
+	}
 
-	public abstract String  execute();
+	public abstract String execute() throws IllegalStateException;
 
 	public RequestService getReqService() {
 		return requestService;
@@ -27,12 +32,12 @@ public abstract class Command {
 		this.requestService = reqService;
 	}
 	
-	public String getToken() {
-		return token;
+	public AppData getAppData() {
+		return appData;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setAppData(AppData appData) {
+		this.appData = appData;
 	}
 
 	protected String getParamValueFromInputString(String paramName, String inputStr) {
