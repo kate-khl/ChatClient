@@ -1,15 +1,18 @@
 package org.khl.chat.command;
 
+import java.util.Scanner;
+
 import org.khl.chat.AppData;
 import org.khl.chat.RequestService;
 import org.khl.chat.exception.InvalidCommandParamException;
-import org.springframework.web.client.RestTemplate;
 
 public abstract class Command {
 
 	public static String description = "$help - справка; \n"
 									+ "$signup -name yourname -email your@email.com -password yourpassword - регистрация нового пользователя; \n"
 									+ "$singin -email your@email.com -password yourpassword - вход зарегистрированного пользователя\n";
+	
+	protected Scanner console;
 	
 	protected RequestService requestService;
 	protected AppData appData;
@@ -40,6 +43,12 @@ public abstract class Command {
 		this.appData = appData;
 	}
 
+	public Scanner getConsole() {
+		return console;
+	}
+	public void setConsole(Scanner console) {
+		this.console = console;
+	}
 	protected String getParamValueFromInputString(String paramName, String inputStr) {
 		
 		int loginBeginIdx = 0;

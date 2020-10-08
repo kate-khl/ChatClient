@@ -2,13 +2,6 @@ package org.khl.chat.command;
 
 import org.khl.chat.dto.LoginRequestDto;
 import org.khl.chat.dto.UserDto;
-import org.khl.chat.exception.IllegalStateException;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.RestTemplate;
 
 public class CmdSignIn extends Command{
 	
@@ -28,6 +21,12 @@ public class CmdSignIn extends Command{
 	@Override
 	public String execute() {
 		
+	    System.out.println("Введите логин: ");
+	    this.email = console.nextLine().trim();
+
+    	System.out.println("Введите пароль: ");
+    	this.password = console.nextLine().trim();
+		
 		try {
 			UserDto uDto = requestService.signIn(new LoginRequestDto(this.email, this.password));
 			return "Вы вошли как " + uDto.getName() + " (" + uDto.getEmail() + ").";
@@ -36,6 +35,7 @@ public class CmdSignIn extends Command{
 			return ex.getMessage();
 		}
 	}
+	
 //
 //	public String getEmail() {
 //		return email;

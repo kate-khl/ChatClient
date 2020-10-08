@@ -1,6 +1,7 @@
 package org.khl.chat;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 import org.khl.chat.command.CommandScanner;
@@ -15,14 +16,11 @@ public class ChatClientApplication implements CommandLineRunner {
 
 	@Autowired
 	private CommandScanner cmdScan;
+	@Autowired 
+	private Scanner console;
 	
 	public static void main(String[] args) {
-		   System.setProperty("http.proxyHost", "127.0.0.1");
-		      System.setProperty("https.proxyHost", "127.0.0.1");
-		      System.setProperty("http.proxyPort", "8888");
-		      System.setProperty("https.proxyPort", "8888");
-		      
-		SpringApplication.run(ChatClientApplication.class, args);
+      		SpringApplication.run(ChatClientApplication.class, args);
 	}
 
     @Override
@@ -33,17 +31,23 @@ public class ChatClientApplication implements CommandLineRunner {
     		  + "\n Для входа введите $signin -email your@email.com -password yourpassword " 
     		  + "\n Для получения справки введите $help");
     	
-    	Scanner console = new Scanner(System.in);
+//    	Scanner console = new Scanner(System.in);
     	scan(console);
-    }
-    
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
     }
     
     private void scan(Scanner console) {
     	System.out.println(cmdScan.parse(console.nextLine()));
     	scan(console);
     }
+    
+    @Bean
+    public RestTemplate restTemplate() {
+    	return new RestTemplate();
+    }
+    
+    @Bean
+    public Scanner getScanner() {
+    	return new Scanner(System.in);
+    }
+    
 }

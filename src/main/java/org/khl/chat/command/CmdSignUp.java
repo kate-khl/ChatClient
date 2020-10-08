@@ -14,17 +14,26 @@ public class CmdSignUp extends Command{
 		super();
 	}
 	
-	public CmdSignUp(String inputStr) {
-		this();
-		this.email = getParamValueFromInputString("email", inputStr);
-		this.password = getParamValueFromInputString("password", inputStr);
-		this.name = getParamValueFromInputString("name", inputStr);
-		this.role = "user";
-	}
+//	public CmdSignUp(String inputStr) {
+//		this();
+//		this.email = getParamValueFromInputString("email", inputStr);
+//		this.password = getParamValueFromInputString("password", inputStr);
+//		this.name = getParamValueFromInputString("name", inputStr);
+//		this.role = "user";
+//	}
 
 	@Override
 	public String execute() throws IllegalStateException{
 	
+		System.out.println("Введите имя: ");
+		this.name = console.nextLine().trim();
+
+		System.out.println("Введите e-mail: ");
+	    this.email = console.nextLine().trim();
+
+    	System.out.println("Введите пароль: ");
+    	this.password = console.nextLine().trim();
+    	
 		try {
 			UserDto uDto = requestService.signUp(new UserDto(this.name, this.email, this.password, this.role));
 			

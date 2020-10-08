@@ -1,5 +1,7 @@
 package org.khl.chat.command;
 
+import java.util.Scanner;
+
 import org.khl.chat.AppData;
 import org.khl.chat.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,12 @@ public class CommandScanner {
 	RequestService requestService;
 	@Autowired
 	private AppData app;
+	@Autowired
+	private Scanner console;
 	
 	public String parse(String inputStr) {
 		
-		Command cmd = getCmd( inputStr);
+		Command cmd = getCmd(inputStr);
 		if (cmd != null)
 			return cmd.execute();
 		else return "Неверная команда\n";
@@ -33,20 +37,23 @@ public class CommandScanner {
 			}
 					
 			else if (inputStr.contains("$signin") && (inputStr.indexOf("$signin")== 0)) {
-				cmd =  new CmdSignIn(inputStr);
+				cmd =  new CmdSignIn();
 				cmd.setReqService(requestService);
+				cmd.setConsole(console);
 				return cmd;
 			}
 
 			else if (inputStr.contains("$signup") && (inputStr.indexOf("$signup")== 0)) {
-				cmd = new CmdSignUp(inputStr);
+				cmd = new CmdSignUp();
 				cmd.setReqService(requestService);
+				cmd.setConsole(console);
 				return cmd;
 			}
 			else if (inputStr.contains("$getusers") && (inputStr.indexOf("$getusers")== 0)) {
 				cmd = new CmdGetUsers();
 				cmd.setReqService(requestService);
 				cmd.setAppData(app);
+				cmd.setConsole(console);
 				return cmd;
 			}
 
