@@ -10,8 +10,17 @@ public class CmdGetUsers extends Command {
 	@Override
 	public String execute() {
 
-		List<UserDto> users = requestService.getUsers(appData.getToken());
-		return users.toString();
+		if (appData.validToken())
+		{
+			try {
+				List<UserDto> users = requestService.getUsers(appData.getToken());
+				return users.toString();
+			} 
+			catch (RuntimeException e) {
+				return e.getMessage();
+			}
+		}
+		else return "Необходима авторизация";
+		
 	}
-
 }

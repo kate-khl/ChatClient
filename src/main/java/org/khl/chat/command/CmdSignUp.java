@@ -25,23 +25,29 @@ public class CmdSignUp extends Command{
 	@Override
 	public String execute() throws IllegalStateException{
 	
-		System.out.println("Введите имя: ");
-		this.name = console.nextLine().trim();
-
-		System.out.println("Введите e-mail: ");
-	    this.email = console.nextLine().trim();
-
-    	System.out.println("Введите пароль: ");
-    	this.password = console.nextLine().trim();
-    	
-		try {
-			UserDto uDto = requestService.signUp(new UserDto(this.name, this.email, this.password, this.role));
-			
-			if (uDto != null) return "Регистрация польователя " + uDto.getName() + " (" + uDto.getEmail() + ") прошла успешно. \nВы можете авторизоваться." ;
-			else return "Ошибка регистрации. Проверьте свои данные.";
-		} catch (IllegalStateException ex) {
-			return ex.getMessage();
+		if (appData == null)
+		{
+			System.out.println("Введите имя: ");
+			this.name = console.nextLine().trim();
+	
+			System.out.println("Введите e-mail: ");
+		    this.email = console.nextLine().trim();
+	
+	    	System.out.println("Введите пароль: ");
+	    	this.password = console.nextLine().trim();
+	    	
+	    	this.role = "user";
+	    	
+			try {
+				UserDto uDto = requestService.signUp(new UserDto(this.name, this.email, this.password, this.role));
+				
+				if (uDto != null) return "Регистрация польователя " + uDto.getName() + " (" + uDto.getEmail() + ") прошла успешно. \nВы можете авторизоваться." ;
+				else return "Ошибка регистрации. Проверьте свои данные.";
+			} catch (IllegalStateException ex) {
+				return ex.getMessage();
+			}
 		}
+		else return "Выйдите из учетной записи ($signout)\n";
 	}
 
 	public String getLogin() {

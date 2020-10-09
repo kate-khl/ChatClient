@@ -49,8 +49,19 @@ public class CommandScanner {
 				cmd.setConsole(console);
 				return cmd;
 			}
+			else if (inputStr.contains("$signout") && (inputStr.indexOf("$signout")== 0)) {
+				cmd = new CmdSignOut();
+				return cmd;
+			}
 			else if (inputStr.contains("$getusers") && (inputStr.indexOf("$getusers")== 0)) {
 				cmd = new CmdGetUsers();
+				cmd.setReqService(requestService);
+				cmd.setAppData(app);
+				cmd.setConsole(console);
+				return cmd;
+			}
+			else if (inputStr.contains("$createchat") && (inputStr.indexOf("$createchat")== 0)) {
+				cmd = new CmdCreateChat();
 				cmd.setReqService(requestService);
 				cmd.setAppData(app);
 				cmd.setConsole(console);

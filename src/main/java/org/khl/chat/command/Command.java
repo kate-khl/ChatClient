@@ -8,9 +8,12 @@ import org.khl.chat.exception.InvalidCommandParamException;
 
 public abstract class Command {
 
-	public static String description = "$help - справка; \n"
-									+ "$signup -name yourname -email your@email.com -password yourpassword - регистрация нового пользователя; \n"
-									+ "$singin -email your@email.com -password yourpassword - вход зарегистрированного пользователя\n";
+	public static String description = "*** Информация ***\n"
+									+ "$help - справка; \n"
+									+ "$signup - регистрация нового пользователя; \n"
+									+ "$singin - вход зарегистрированного пользователя\n"
+									+ "$getusers - получить список всех пользователей"
+									+ "$createchat - ";
 	
 	protected Scanner console;
 	

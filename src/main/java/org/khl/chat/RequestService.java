@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.khl.chat.dto.ChatDto;
+import org.khl.chat.dto.CreateChatRequest;
 import org.khl.chat.dto.LoginRequestDto;
 import org.khl.chat.dto.LoginResponseDto;
 import org.khl.chat.dto.Session;
@@ -27,7 +29,8 @@ public class RequestService {
 
 	private static final String URL_SIGN_IN = "http://127.0.0.1:8080/auth";
 	private static final String URL_SIGN_UP = "http://127.0.0.1:8080/registration";
-	private static final String URL_GET_USERS = "http://127.0.0.1:8080//users/list";
+	private static final String URL_GET_USERS = "http://127.0.0.1:8080/users/list";
+	private static final String URL_CREATE_CHAT = "http://127.0.0.1:8080/chats";
 	
 	@Autowired
 	AppData app;
@@ -78,6 +81,18 @@ public class RequestService {
 			
 		//	ResponseEntity<UserDto[]> response1 = restTemplate.getForEntity(URL_GET_USERS, UserDto[].class);
 			return Arrays.asList(response.getBody());
+		} catch (ResourceAccessException e) {
+			throw new IllegalStateException("Сервер недоступен.");		
+		}
+	}
+
+	public ChatDto createChat(String token, CreateChatRequest createChat) {
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Authorization", token);
+			HttpEntity<CreateChatRequest> entity = new HttpEntity<>(createChat, headers);
+			ResponseEntity<ChatDto> response = restTemplate.postForEntity(URL_CREATE_CHAT, entity, ChatDto.class); 
+			return response.getBody();
 		} catch (ResourceAccessException e) {
 			throw new IllegalStateException("Сервер недоступен.");		
 		}

@@ -15,7 +15,7 @@ public final class AppData {
 	private String name;
 	private String email;
 	private String password;
-    private Date expDate;
+    private Long expMillis;
     private String token;
     
     private AppData() {        
@@ -26,12 +26,16 @@ public final class AppData {
     	this.email = s.getEmail();
     	this.name = s.getName();
     	this.password = s.getPassword();
-    	this.expDate = s.getExpDate();
+    	this.expMillis = s.getExp();
     }
     
-//    public boolean verifyToken() {
-//    	if
-//    }
+    public boolean validToken() {
+    	System.out.println(System.currentTimeMillis());
+    	if(this.token != null && this.expMillis > System.currentTimeMillis())
+    		return true;
+    	else return false;
+    	
+    }
     
 	public String getToken() {
 		return token;
@@ -73,12 +77,12 @@ public final class AppData {
 		this.password = password;
 	}
 	
-	public Date getExpDate() {
-		return expDate;
+	public Long getExpMillis() {
+		return expMillis;
 	}
 
-	public void setExpDate(Date expDate) {
-		this.expDate = expDate;
+	public void setExpMillis(Long expDate) {
+		this.expMillis = expDate;
 	}
 
 }
