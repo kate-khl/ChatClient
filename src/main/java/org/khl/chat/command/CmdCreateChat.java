@@ -28,7 +28,8 @@ public class CmdCreateChat extends Command{
 
 			CreateChatRequest createChatReq = new CreateChatRequest(this.userIds, this.name, this.message);
 			ChatDto chat = requestService.createChat(appData.getToken(), createChatReq);
-			return "Создан чат №" + chat.getId() + " " + chat.getName() + "\n";
+			System.out.println("Создан чат №" + chat.getId() + " " + chat.getName() + "\n");
+			return "";
 		} 
 		catch (RuntimeException e) {
 			return e.getMessage();

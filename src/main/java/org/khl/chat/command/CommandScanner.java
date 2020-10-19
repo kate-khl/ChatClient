@@ -26,7 +26,6 @@ public class CommandScanner {
 		else return "Неверная команда\n";
 	}
 	
-	
 	private Command getCmd(String inputStr) {
 		Command cmd;
 		inputStr = inputStr.trim();	

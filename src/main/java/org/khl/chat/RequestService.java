@@ -1,14 +1,14 @@
 package org.khl.chat;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import org.khl.chat.dto.ChatDto;
 import org.khl.chat.dto.CreateChatRequest;
 import org.khl.chat.dto.LoginRequestDto;
 import org.khl.chat.dto.LoginResponseDto;
+import org.khl.chat.dto.MessageDto;
+import org.khl.chat.dto.SendMessageRequest;
 import org.khl.chat.dto.Session;
 import org.khl.chat.dto.UserDto;
 import org.khl.chat.exception.IllegalStateException;
@@ -20,7 +20,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
@@ -31,6 +30,8 @@ public class RequestService {
 	private static final String URL_SIGN_UP = "http://127.0.0.1:8080/registration";
 	private static final String URL_GET_USERS = "http://127.0.0.1:8080/users/list";
 	private static final String URL_CREATE_CHAT = "http://127.0.0.1:8080/chats";
+	private static final String URL_SEND_MSG = "http://127.0.0.1:8080/chats/{id}/messages";
+	
 	
 	@Autowired
 	AppData app;
@@ -92,6 +93,18 @@ public class RequestService {
 			headers.add("Authorization", token);
 			HttpEntity<CreateChatRequest> entity = new HttpEntity<>(createChat, headers);
 			ResponseEntity<ChatDto> response = restTemplate.postForEntity(URL_CREATE_CHAT, entity, ChatDto.class); 
+			return response.getBody();
+		} catch (ResourceAccessException e) {
+			throw new IllegalStateException("Сервер недоступен.");		
+		}
+	}
+	
+	public MessageDto sendMessage(String token, Long chatId, String message) {
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Authorization", token);
+			HttpEntity<SendMessageRequest> entity = new HttpEntity<>(new SendMessageRequest(message), headers);
+			ResponseEntity<MessageDto> response = restTemplate.postForEntity(URL_SEND_MSG.replace("{id}", chatId.toString()), entity, MessageDto.class);
 			return response.getBody();
 		} catch (ResourceAccessException e) {
 			throw new IllegalStateException("Сервер недоступен.");		
