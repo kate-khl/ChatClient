@@ -29,6 +29,10 @@ public class ChatDto {
 		this.author = author;
 	}
 	
-	
+	@Override
+	public String toString() {
+		String result = "Chat №" + this.id + " " + this.name;
+		return result;
+	}
 	
 }

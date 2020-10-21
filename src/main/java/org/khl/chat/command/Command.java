@@ -11,9 +11,10 @@ public abstract class Command {
 	public static String description = "*** Информация ***\n"
 									+ "$help - справка; \n"
 									+ "$signup - регистрация нового пользователя; \n"
-									+ "$singin - вход зарегистрированного пользователя\n"
-									+ "$getusers - получить список всех пользователей"
-									+ "$createchat - ";
+									+ "$signin - вход зарегистрированного пользователя\n"
+									+ "$getusers - получить список всех пользователей\n"
+									+ "$createchat - создать чат\n"
+									+ "$getchats - получить список своих чатов\n";
 	
 	protected Scanner console;
 	

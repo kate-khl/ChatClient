@@ -12,6 +12,7 @@ import org.khl.chat.dto.SendMessageRequest;
 import org.khl.chat.dto.Session;
 import org.khl.chat.dto.UserDto;
 import org.khl.chat.exception.IllegalStateException;
+import org.khl.chat.exception.InvalidCommandParamException;
 import org.khl.chat.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -31,6 +32,8 @@ public class RequestService {
 	private static final String URL_GET_USERS = "http://127.0.0.1:8080/users/list";
 	private static final String URL_CREATE_CHAT = "http://127.0.0.1:8080/chats";
 	private static final String URL_SEND_MSG = "http://127.0.0.1:8080/chats/{id}/messages";
+	private static final String URL_GET_CHATS = "http://127.0.0.1:8080/user/{id}/chats";
+	private static final String URL_GET_MSGS = "http://127.0.0.1:8080/chats/{id}/messages";
 	
 	
 	@Autowired
@@ -47,6 +50,8 @@ public class RequestService {
 			return response.getBody();
 		} catch (ResourceAccessException e) {
 			throw new IllegalStateException("Сервер недоступен.");		
+		} catch (HttpClientErrorException e) {
+			throw new InvalidCommandParamException(e.getStatusCode() + ": " + e.getStatusText());
 		}
 	}
 	
@@ -79,8 +84,6 @@ public class RequestService {
 			headers.add("Authorization", token);
 			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 			ResponseEntity<UserDto[]> response = restTemplate.exchange(URL_GET_USERS + "?page={page}1&size={size}", HttpMethod.GET, entity, UserDto[].class, 1, 5);
-			
-		//	ResponseEntity<UserDto[]> response1 = restTemplate.getForEntity(URL_GET_USERS, UserDto[].class);
 			return Arrays.asList(response.getBody());
 		} catch (ResourceAccessException e) {
 			throw new IllegalStateException("Сервер недоступен.");		
@@ -99,6 +102,18 @@ public class RequestService {
 		}
 	}
 	
+	public List<ChatDto> getChats(String token) {
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Authorization", token);
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+			ResponseEntity<ChatDto[]> response = restTemplate.exchange(URL_GET_CHATS.replace("{id}", app.getId().toString()), HttpMethod.GET, entity, ChatDto[].class, 1, 5);
+			return Arrays.asList(response.getBody());
+		} catch (ResourceAccessException e) {
+			throw new IllegalStateException("Сервер недоступен.");		
+		}
+	}
+	
 	public MessageDto sendMessage(String token, Long chatId, String message) {
 		try {
 			HttpHeaders headers = new HttpHeaders();
@@ -106,6 +121,18 @@ public class RequestService {
 			HttpEntity<SendMessageRequest> entity = new HttpEntity<>(new SendMessageRequest(message), headers);
 			ResponseEntity<MessageDto> response = restTemplate.postForEntity(URL_SEND_MSG.replace("{id}", chatId.toString()), entity, MessageDto.class);
 			return response.getBody();
+		} catch (ResourceAccessException e) {
+			throw new IllegalStateException("Сервер недоступен.");		
+		}
+	}
+	
+	public List<MessageDto> getMessages(String token, Long chatId) {
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Authorization", token);
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+			ResponseEntity<MessageDto[]> response = restTemplate.exchange(URL_GET_MSGS.replace("{id}", chatId.toString()), HttpMethod.GET, entity, MessageDto[].class, 1, 5);
+			return Arrays.asList(response.getBody());
 		} catch (ResourceAccessException e) {
 			throw new IllegalStateException("Сервер недоступен.");		
 		}

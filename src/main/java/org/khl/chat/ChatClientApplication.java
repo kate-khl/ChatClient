@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import org.khl.chat.command.Command;
 import org.khl.chat.command.CommandScanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,12 +27,7 @@ public class ChatClientApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws IOException {
 
-    	System.out.println("\n\n***Начало работы*** " + 
-    			"\n Для регистрации введите $signup -name yourname -email your@email.com -password yourpassword" 
-    		  + "\n Для входа введите $signin -email your@email.com -password yourpassword " 
-    		  + "\n Для получения справки введите $help");
-    	
-//    	Scanner console = new Scanner(System.in);
+    	System.out.println(Command.description);
     	scan(console);
     }
     

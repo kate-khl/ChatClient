@@ -66,6 +66,13 @@ public class CommandScanner {
 				cmd.setConsole(console);
 				return cmd;
 			}
+			else if (inputStr.contains("$getchats") && (inputStr.indexOf("$getchats")== 0)) {
+				cmd = new CmdGetChats();
+				cmd.setReqService(requestService);
+				cmd.setAppData(app);
+				cmd.setConsole(console);
+				return cmd;
+			}
 
 		return null;
 	}

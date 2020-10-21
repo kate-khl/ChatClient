@@ -17,6 +17,7 @@ public final class AppData {
 	private String password;
     private Long expMillis;
     private String token;
+    private Long chatId;
     
     private AppData() {        
     }
@@ -30,7 +31,6 @@ public final class AppData {
     }
     
     public boolean validToken() {
-    	System.out.println(System.currentTimeMillis());
     	if(this.token != null && this.expMillis > System.currentTimeMillis())
     		return true;
     	else return false;
@@ -84,5 +84,15 @@ public final class AppData {
 	public void setExpMillis(Long expDate) {
 		this.expMillis = expDate;
 	}
+
+	public Long getChatId() {
+		return chatId;
+	}
+
+	public void setChatId(Long chatId) {
+		this.chatId = chatId;
+	}
+	
+	
 
 }

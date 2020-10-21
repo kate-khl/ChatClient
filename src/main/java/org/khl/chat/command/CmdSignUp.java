@@ -2,6 +2,7 @@ package org.khl.chat.command;
 
 import org.khl.chat.dto.UserDto;
 import org.khl.chat.exception.IllegalStateException;
+import org.khl.chat.exception.InvalidCommandParamException;
 
 public class CmdSignUp extends Command{
 	
@@ -45,6 +46,8 @@ public class CmdSignUp extends Command{
 				else return "Ошибка регистрации. Проверьте свои данные.";
 			} catch (IllegalStateException ex) {
 				return ex.getMessage();
+			} catch (InvalidCommandParamException e) {
+				return e.getMessage();
 			}
 		}
 		else return "Выйдите из учетной записи ($signout)\n";

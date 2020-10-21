@@ -3,10 +3,9 @@ package org.khl.chat.command;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.khl.chat.dto.ChatDto;
 import org.khl.chat.dto.UserDto;
 
-public class CmdGetChats extends Command {
+public class CmdGetMessages extends Command {
 
 	@Override
 	public String execute() {
@@ -14,7 +13,7 @@ public class CmdGetChats extends Command {
 		if (appData.validToken())
 		{
 			try {
-				List<ChatDto> users = requestService.getChats(appData.getToken());
+				List<UserDto> users = requestService.getUsers(appData.getToken());
 				return users.toString();
 			} 
 			catch (RuntimeException e) {
