@@ -73,6 +73,32 @@ public class CommandScanner {
 				cmd.setConsole(console);
 				return cmd;
 			}
+			else if (inputStr.contains("$choosechat") && (inputStr.indexOf("$choosechat")== 0)) {
+				cmd = new CmdChooseChat();
+				cmd.setReqService(requestService);
+				cmd.setAppData(app);
+				cmd.setConsole(console);
+				return cmd;
+			}
+			else if (inputStr.contains("$sendmessage") && (inputStr.indexOf("$sendmessage")== 0)) {
+				cmd = new CmdSendMessage();
+				cmd.setReqService(requestService);
+				cmd.setAppData(app);
+				cmd.setConsole(console);
+				return cmd;
+			}
+			else if (inputStr.contains("$getmessages") && (inputStr.indexOf("$getmessages")== 0)) {
+				cmd = new CmdGetMessages();
+				cmd.setReqService(requestService);
+				cmd.setAppData(app);
+				cmd.setConsole(console);
+				return cmd;
+			}
+			else if (inputStr.contains("$leavechat") && (inputStr.indexOf("$leavechat")== 0)) {
+				cmd = new CmdLeaveChat();
+				cmd.setAppData(app);
+				return cmd;
+			}
 
 		return null;
 	}

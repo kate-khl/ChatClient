@@ -6,8 +6,15 @@ public class CmdChooseChat extends Command{
 	
 	@Override
 	public String execute() throws IllegalStateException {
-		appData.setChatId(chatId);
-		return "Выбран чат №" + chatId + "Для завершения диалога введите команду $leavechat";
+		
+	    try {
+	    	System.out.println("Введите номер чата : \n");
+	    	this.chatId = Long.parseLong(console.nextLine().trim());
+	    	appData.setChatId(chatId);
+	    	return "Выбран чат №" + chatId + " Для завершения диалога введите команду $leavechat\n";
+	    } catch (RuntimeException e) {
+				return e.getMessage();
+		}
 	}
 
 	public Long getChatId() {
@@ -17,4 +24,5 @@ public class CmdChooseChat extends Command{
 	public void setChatId(Long chatId) {
 		this.chatId = chatId;
 	}
+	
 }

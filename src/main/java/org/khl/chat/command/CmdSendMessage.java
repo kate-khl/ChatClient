@@ -4,9 +4,13 @@ public class CmdSendMessage extends Command{
 
 	@Override
 	public String execute() throws IllegalStateException {
-		String msg = console.nextLine().trim();
-		System.out.println(msg + "/n");
-		return null;
+		
+		if (appData.getChatId() != null) {
+			String msg = console.nextLine().trim();
+			requestService.sendMessage(appData.getToken(), appData.getChatId(), msg);
+			return msg + "\n";
+		}
+		else return "Чат не выбран";
 	}
 
 }

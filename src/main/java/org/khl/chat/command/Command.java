@@ -17,7 +17,7 @@ public abstract class Command {
 									+ "$getchats - получить список своих чатов\n";
 	
 	protected Scanner console;
-	
+	protected String inputStr;
 	protected RequestService requestService;
 	protected AppData appData;
 	
@@ -52,6 +52,13 @@ public abstract class Command {
 	}
 	public void setConsole(Scanner console) {
 		this.console = console;
+	}
+	
+	public String getInputStr() {
+		return inputStr;
+	}
+	public void setInputStr(String inputStr) {
+		this.inputStr = inputStr;
 	}
 	protected String getParamValueFromInputString(String paramName, String inputStr) {
 		

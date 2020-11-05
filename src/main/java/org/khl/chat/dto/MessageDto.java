@@ -13,27 +13,11 @@ public class MessageDto {
 
 	public MessageDto() {}
 	
-//	public MessageDto(Long id, String value, UserDto author, Date date) {
-//		super();
-//		this.id = id;
-//		this.value = value;
-//		this.author = author;
-//		this.date = date;
-//	}
-	
-//	public MessageDto(Message msg) {
-//		this.id = msg.getId();
-//		this.value = msg.getValue();
-//		this.author = new UserDto(msg.getAuthor());
-//		this.date = msg.getDate();
-//	}
-	
-//	public MessageDto(String value, ChatDto chatDto, UserDto authorDto) {
-//		this.value = value;
-//		this.author = authorDto;
-//		this.date = new Date();
-////		this.chat = chatDto;
-//	}
+	@Override
+	public String toString() {
+		String result = this.getDate() + " " + this.getAuthor().getName() + " " + this.getValue() + "\n";
+		return result;
+	}
 	
 	public Long getId() {
 		return id;

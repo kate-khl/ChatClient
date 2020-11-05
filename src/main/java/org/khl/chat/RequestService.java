@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class RequestService {
@@ -130,8 +131,13 @@ public class RequestService {
 		try {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Authorization", token);
+			
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_GET_MSGS.replace("{id}", chatId.toString()))
+			        .queryParam("page", 1)
+			        .queryParam("size", 5);
+			
 			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-			ResponseEntity<MessageDto[]> response = restTemplate.exchange(URL_GET_MSGS.replace("{id}", chatId.toString()), HttpMethod.GET, entity, MessageDto[].class, 1, 5);
+			ResponseEntity<MessageDto[]> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, MessageDto[].class, 1, 5);
 			return Arrays.asList(response.getBody());
 		} catch (ResourceAccessException e) {
 			throw new IllegalStateException("Сервер недоступен.");		

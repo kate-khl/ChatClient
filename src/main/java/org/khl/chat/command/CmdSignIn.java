@@ -12,11 +12,11 @@ public class CmdSignIn extends Command{
 		super();
 	}
 	
-	public CmdSignIn(String inputStr) {
-		this();
-		this.email = getParamValueFromInputString("email", inputStr);
-		this.password = getParamValueFromInputString("password", inputStr);
-	}
+//	public CmdSignIn(String inputStr) {
+//		this();
+//		this.email = getParamValueFromInputString("email", inputStr);
+//		this.password = getParamValueFromInputString("password", inputStr);
+//	}
 
 	@Override
 	public String execute() {
