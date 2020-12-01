@@ -84,7 +84,7 @@ public class RequestService {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Authorization", token);
 			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-			ResponseEntity<UserDto[]> response = restTemplate.exchange(URL_GET_USERS + "?page={page}1&size={size}", HttpMethod.GET, entity, UserDto[].class, 1, 5);
+			ResponseEntity<UserDto[]> response = restTemplate.exchange(URL_GET_USERS, HttpMethod.GET, entity, UserDto[].class);
 			return Arrays.asList(response.getBody());
 		} catch (ResourceAccessException e) {
 			throw new IllegalStateException("Сервер недоступен.");		
