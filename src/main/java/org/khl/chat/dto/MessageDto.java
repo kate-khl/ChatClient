@@ -8,8 +8,6 @@ public class MessageDto {
 	private String value;
 	private UserDto author;
 	private Date date;
-//	private ChatDto chat;
-	
 
 	public MessageDto() {}
 	
@@ -43,13 +41,5 @@ public class MessageDto {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-//	public void setChat(ChatDto chat) {
-//		this.chat = chat;
-//	}
-//
-//	public ChatDto getChat() {
-//		return chat;
-//	}
-
 	
 }

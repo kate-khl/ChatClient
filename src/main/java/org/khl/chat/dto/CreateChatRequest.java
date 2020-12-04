@@ -9,7 +9,6 @@ public class CreateChatRequest {
 	private Collection<Long> userIds;
 	private String name;
 	private String message;
-//	private User creator;
 
 	public CreateChatRequest() {}
 	

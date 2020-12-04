@@ -11,12 +11,6 @@ public class CmdSignIn extends Command{
 	public CmdSignIn() {
 		super();
 	}
-	
-//	public CmdSignIn(String inputStr) {
-//		this();
-//		this.email = getParamValueFromInputString("email", inputStr);
-//		this.password = getParamValueFromInputString("password", inputStr);
-//	}
 
 	@Override
 	public String execute() {
@@ -39,25 +33,4 @@ public class CmdSignIn extends Command{
 		else return "Выйдите из учетной записи ($signout)";
 	}
 	
-	private String name(String text) {
-    	System.out.println(text);
-    	return console.nextLine().trim();
-	}
-	
-//
-//	public String getEmail() {
-//		return email;
-//	}
-//
-//	public void setEmail(String email) {
-//		this.email = email;
-//	}
-//
-//	public String getPassword() {
-//		return password;
-//	}
-//
-//	public void setPassword(String password) {
-//		this.password = password;
-//	}
 }

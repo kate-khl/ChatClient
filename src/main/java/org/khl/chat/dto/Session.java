@@ -12,8 +12,7 @@ public class Session {
 	private String email;
 	private String password;
     private Long exp;
-//    private Date expDate;
-    
+
 	public static Session getFromToken(String token) {
 		token = token.replace("_", "+").replace("-", "/");
 		
@@ -24,7 +23,6 @@ public class Session {
         String body = new String(Base64.getMimeDecoder().decode(base64EncodedBody));
         Gson gson = new Gson();
         Session ss = gson.fromJson(body, Session.class);
-    //    ss.setExpDateFromUnix(ss.exp);
 
         return ss;
 	}
@@ -59,19 +57,5 @@ public class Session {
 	public void setExp(Long exp) {
 		this.exp = exp;
 	}
-
-//	public Date getExpDate() {
-//		return expDate;
-//	}
-//
-//	public void setExpDate(Date expDate) {
-//		this.expDate = expDate;
-//	}
-//    
-//	public void setExpDateFromUnix(Long unixDate) {
-//		this.expDate = new Date(unixDate*1000);
-//	}
-	
-	
-    
+  
 }

@@ -14,14 +14,6 @@ public class CmdSignUp extends Command{
 	public CmdSignUp() {
 		super();
 	}
-	
-//	public CmdSignUp(String inputStr) {
-//		this();
-//		this.email = getParamValueFromInputString("email", inputStr);
-//		this.password = getParamValueFromInputString("password", inputStr);
-//		this.name = getParamValueFromInputString("name", inputStr);
-//		this.role = "user";
-//	}
 
 	@Override
 	public String execute() throws IllegalStateException{

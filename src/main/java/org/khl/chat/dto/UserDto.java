@@ -1,8 +1,5 @@
 package org.khl.chat.dto;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class UserDto {
 	
 	private Long id;
@@ -13,7 +10,6 @@ public class UserDto {
 	
 	public UserDto(String name, String email, String password, String role) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;

@@ -7,7 +7,7 @@ import org.khl.chat.dto.ChatDto;
 import org.khl.chat.dto.CreateChatRequest;
 import org.khl.chat.exception.StringFormatException;
 
-public class CmdCreateChat extends Command{
+public class CmdCreateChat extends Command {
 
 	private Collection<Long> userIds;
 	private String message;
